@@ -1,73 +1,51 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        weather-frontend
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+  <section>
+    <p style="text-align: right"><button v-on:click="refreshData">Actualiser</button></p>
+    <div class="grid-4-small-2 has-gutter">
+        <SummaryCard v-for="item in sensorList" v-bind:sensor="item" v-bind:key="item.code"></SummaryCard>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
-export default {}
+import SummaryCard from "@/components/SummaryCard.vue";
+import { methods } from '~/../weather/frontend/src/components/IndexPage.vue';
+
+export default {
+  name: 'index',
+  data() {
+    return {
+      sensorList: []
+    };
+  },
+  components: {
+    SummaryCard
+  },
+  mounted() {
+    this.$nuxt.$emit('page-change', {
+      title: 'Météo maison',
+      rootPage: true
+    })
+  },
+  async asyncData({ $axios }) {
+    const data = await fetch(`http://localhost:8080/view/sensors/`).then(res => res.json())
+
+    return {
+      sensorList: data
+    } 
+  },
+  methods: {
+    refreshData() {
+      console.log('Refresh data');
+      var that = this;
+
+      this.$axios.get(`http://localhost:8080/view/sensors/`).then(res => {
+        that.sensorList = res.data
+      })
+    }
+  }
+}
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>

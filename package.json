@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "NUXT_HOST=0.0.0.0 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
+    "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.5"
+    "knacss": "^7.1.3",
+    "nuxt": "^2.14.5",
+    "vue-chartjs": "^3.5.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@nuxtjs/moment": "^1.6.1",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2"
+  }
 }

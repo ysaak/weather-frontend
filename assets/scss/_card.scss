@@ -1,0 +1,28 @@
+.card {
+    position: relative;
+
+    display: block;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #212228;
+    margin-bottom: 1em;
+}
+
+/* --- sensor summary card --- */
+
+/* --- data card --- */
+.data-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-card .data-type {
+    font-size: 0.6em;
+    color: $text-disabled-color;
+}
+
+.data-card .data-value {
+    font-size: 2em;
+    text-align: center;
+    color: $text-emphasis-color;
+}
